@@ -1,0 +1,64 @@
+<div class="container"> 
+  <div class="jumbotron"> 
+    <img src="/assets/images/burger.png"> 
+    <h1> Eat-Da-Burger! </h1>
+  </div>
+
+  {{!-- burger list before being eaten --}}
+  <h3>Which burger would you like?</h3>
+    <ol class="list-group">
+    {{#each burgers}}
+      {{#unless this.devoured}}
+        <li>
+        <div class="input-group">
+          <p class="lead"> {{this.burger_name}} </p>
+          <span class="input-group-btn">
+            <form action="{{this.id}}?_method=PUT" method="POST">
+              <input type="hidden" name="devoured" value="true">
+              <button class="btn btn-default btn-lg" type="submit"> Devour It! </button>
+            </form>
+          </span>
+        </div>
+      </li>
+      {{/unless}}
+    {{/each}}
+  </ol>
+    
+
+
+    {{!-- burger list after being eaten --}}
+  
+  <h3>These are the burgers already eaten.  Eat again?</h3>
+    <ol class="list-group">
+    {{#each burgers}}
+      {{#if this.devoured}}
+        <li>
+        <div class="input-group">
+          <p class="lead"> {{this.burger_name}} </p>
+          <span class="input-group-btn">
+            <form action="{{this.id}}?_method=PUT" method="POST">
+              <input type="hidden" name="devoured" value="false">
+              <button class="btn btn-default btn-lg" type="submit"> Eat Again! </button>
+            </form>
+          </span>
+        </div>
+      </li>
+      {{/if}}
+    {{/each}}
+  </ol>
+    
+
+  
+  <h5> Enter the name of the burger you want to eat & click the 'Add Burger' button. </h5>
+
+  {{!-- section to add burgers --}}
+  <form class="create-update-form" <form action="/" method="POST">
+
+    <div class="form-group">
+
+      <textarea class="form-control input-lg" type="text" name="burger_name" rows="3"> </textarea>
+    </div>
+
+    <button class="btn btn-default btn-lg" type="submit">Add Burger</button>
+  </form>
+</div>
